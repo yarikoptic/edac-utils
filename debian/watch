@@ -1,0 +1,3 @@
+version=3
+http://sf.net/edac-utils/edac-utils-(.*)\.tar\.bz2 debian dh_wraporig
+
