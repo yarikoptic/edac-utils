@@ -3,7 +3,7 @@ Section: admin
 Priority: extra
 Maintainer: Yaroslav Halchenko <debian@onerussian.com>
 Uploaders: Tim Small <tim@buttersideup.com>
-Build-Depends: cdbs, cdbs, debhelper (>= 5), autotools-dev, libsysfs-dev
+Build-Depends: cdbs, debhelper (>= 5), autotools-dev, libsysfs-dev
 XS-Vcs-Svn: https://edac-utils.svn.sourceforge.net/svnroot/edac-utils
 XS-Vcs-Browser: http://edac-utils.svn.sourceforge.net/viewvc/edac-utils
 Standards-Version: 3.7.2
@@ -33,7 +33,7 @@ Description: Utilities to report kernel-detected PCI and ECC RAM errors
 Package: libedac-dev
 Section: libdevel
 Architecture: any
-Depends: libedac (= ${Source-Version})
+Depends: libedac (= ${source:Version})
 Description: Utilities to report kernel-detected PCI and ECC RAM errors
  This package contains the user-space utilities for use with the EDAC
  kernel subsystem.  EDAC (Error Detection and Correction) is a set of
