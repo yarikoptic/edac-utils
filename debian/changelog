@@ -1,6 +1,6 @@
-edac-utils (0.10-1~pre1) unstable; urgency=low
+edac-utils (0.10-1~pre2) unstable; urgency=low
 
-  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+  * Initial release (Closes: #445860)
 
- -- Tim Small <tim@buttersideup.com>  Thu, 21 Jun 2007 17:21:21 +0100
+ -- Yaroslav Halchenko <debian@onerussian.com>  Tue, 09 Oct 2007 17:44:34 -0400
 

@@ -1,12 +1,13 @@
 This package was debianized by Tim Small <tim@buttersideup.com> on
 Thu, 21 Jun 2007 17:21:21 +0100.
 
-It was downloaded from <fill in http/ftp site>
+Packaging was extended by Yaroslav Halchenko <debian@onerussian.com>
 
-Upstream Author: <put author(s) name and email here>
+It was downloaded from http://sourceforge.net/projects/edac-utils
 
-Copyright: <put the year(s) of the copyright, and the names of the
-            copyright holder(s) here>
+Upstream Author: Mark Grondona <mgrondona@llnl.gov>
+
+Copyright: 2001-2007 The Regents of the University of California
 
 License:
 
@@ -29,7 +30,3 @@ Public License can be found in `/usr/share/common-licenses/GPL'.
 
 The Debian packaging is (C) 2007, Tim Small <tim@buttersideup.com> and
 is licensed under the GPL, see above.
-
-
-# Please also look if there are files or directories which have a
-# different copyright/license attached and list them here.
