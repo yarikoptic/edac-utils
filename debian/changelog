@@ -1,6 +1,16 @@
-edac-utils (0.10-1~pre2) unstable; urgency=low
+edac-utils (0.10-1~1.gbp5e54ba) UNRELEASED; urgency=low
+
+  ** SNAPSHOT build @5e54ba98c8e3c1a4fc27787bc5690bb325ea0685 **
 
   * Initial release (Closes: #445860)
+  * UNRELEASED
+  * setting up building
+  * ITP, depends, copyrights
+  * cleaning up unused .ex
+  * templated debian/control
+  * corrected for lintian warnings
+  * specifying what to install and where
+  * fixed installing from debian/tmp
 
  -- Yaroslav Halchenko <debian@onerussian.com>  Tue, 09 Oct 2007 17:44:34 -0400
 
