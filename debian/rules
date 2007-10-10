@@ -4,6 +4,7 @@ include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/autotools.mk
 
 DEB_DH_INSTALL_SOURCEDIR:=debian/tmp
+DEB_DH_INSTALLINIT_ARGS:=--name=edac
 
 # Add here any variable or target overrides you need.
 debian/control:: debian/control.in

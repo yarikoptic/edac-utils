@@ -20,16 +20,26 @@ Recommends: dmidecode
 Package: libedac-dev
 Section: libdevel
 Architecture: any
-Depends: libedac (= ${source:Version})
+Depends: libedac1 (= ${binary:Version})
 #include "description.in"
  .
  This package contains development files for the library
 
-Package: libedac
+Package: libedac1
 Section: libs
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: libedac
 #include "description.in"
  .
  This package includes shared library
 
+Package: libedac1-dbg
+Section: libdevel
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: libedac
+#include "description.in"
+ .
+ This package includes shared library with debugging symbols
+ not stripped

@@ -1,6 +1,6 @@
-edac-utils (0.10-1~1.gbp5e54ba) UNRELEASED; urgency=low
+edac-utils (0.10-1~2.gbp591669) UNRELEASED; urgency=low
 
-  ** SNAPSHOT build @5e54ba98c8e3c1a4fc27787bc5690bb325ea0685 **
+  ** SNAPSHOT build @591669ec9e3f2c5376fad467bfc010cca910454b **
 
   * Initial release (Closes: #445860)
   * UNRELEASED
@@ -11,6 +11,8 @@ edac-utils (0.10-1~1.gbp5e54ba) UNRELEASED; urgency=low
   * corrected for lintian warnings
   * specifying what to install and where
   * fixed installing from debian/tmp
+  * made -dbg, mv libedac{,1}, init script installed more or less
+    properly
 
- -- Yaroslav Halchenko <debian@onerussian.com>  Tue, 09 Oct 2007 17:44:34 -0400
+ -- Yaroslav Halchenko <debian@onerussian.com>  Wed, 10 Oct 2007 00:19:58 -0400
 
