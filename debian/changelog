@@ -1,6 +1,6 @@
-edac-utils (0.10-1~3.gbp6e4fc2) UNRELEASED; urgency=low
+edac-utils (0.10-1~4.gbpa8b8c6) UNRELEASED; urgency=low
 
-  ** SNAPSHOT build @6e4fc2f6321025f1bdbb3ca8a12158cd0f0b9406 **
+  ** SNAPSHOT build @a8b8c632e4417126f7c0ccf6f6eaefad7920ec56 **
 
   * Initial release (Closes: #445860)
   * UNRELEASED
@@ -13,6 +13,8 @@ edac-utils (0.10-1~3.gbp6e4fc2) UNRELEASED; urgency=low
   * fixed installing from debian/tmp
   * made -dbg, mv libedac{,1}, init script installed more or less
     properly
+  * copied upstream init script for now. will have to be heavily
+    adjusted anyways
 
- -- Yaroslav Halchenko <debian@onerussian.com>  Wed, 10 Oct 2007 00:22:19 -0400
+ -- Yaroslav Halchenko <debian@onerussian.com>  Wed, 10 Oct 2007 00:56:17 -0400
 

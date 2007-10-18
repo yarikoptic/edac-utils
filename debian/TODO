@@ -1,0 +1,3 @@
+figure out why the heck cdbs decided to install
+debian/libedac1-dbg/usr/lib/debug/usr/bin/edac-util
+as well...
