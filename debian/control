@@ -10,7 +10,7 @@ Standards-Version: 3.7.2
 
 Package: edac-utils
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends}, lsb-base (>= 3.0-6)
 Recommends: dmidecode
 Description: Utilities to report kernel-detected PCI and ECC RAM errors
  This package contains the user-space utilities for use with the EDAC
