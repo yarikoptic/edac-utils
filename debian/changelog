@@ -1,6 +1,6 @@
-edac-utils (0.10-1~4.gbpa8b8c6) UNRELEASED; urgency=low
+edac-utils (0.10-1~5.gbpd2a9e4) UNRELEASED; urgency=low
 
-  ** SNAPSHOT build @a8b8c632e4417126f7c0ccf6f6eaefad7920ec56 **
+  ** SNAPSHOT build @d2a9e4ab49a694a0b040285602001632496dd6aa **
 
   * Initial release (Closes: #445860)
   * UNRELEASED
@@ -15,6 +15,7 @@ edac-utils (0.10-1~4.gbpa8b8c6) UNRELEASED; urgency=low
     properly
   * copied upstream init script for now. will have to be heavily
     adjusted anyways
+  * removed parts of init script which according to upstream are
+    obsolete now
 
- -- Yaroslav Halchenko <debian@onerussian.com>  Wed, 10 Oct 2007 00:56:17 -0400
-
+ -- Yaroslav Halchenko <debian@onerussian.com>  Sun, 18 Nov 2007 22:51:20 -0500
