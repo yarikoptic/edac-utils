@@ -37,7 +37,7 @@ Provides: libedac
 Package: libedac1-dbg
 Section: libdevel
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libedac1 = ${binary:Version})
+Depends: ${shlibs:Depends}, ${misc:Depends}, libedac1 (= ${binary:Version})
 Provides: libedac
 #include "description.in"
  .

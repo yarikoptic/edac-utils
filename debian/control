@@ -78,7 +78,7 @@ Description: Utilities to report kernel-detected PCI and ECC RAM errors
 Package: libedac1-dbg
 Section: libdevel
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, libedac1 = ${binary:Version})
+Depends: ${shlibs:Depends}, ${misc:Depends}, libedac1 (= ${binary:Version})
 Provides: libedac
 Description: Utilities to report kernel-detected PCI and ECC RAM errors
  This package contains the user-space utilities for use with the EDAC
