@@ -44,7 +44,13 @@ service_start ()
 # Start the service.  Required by LSB.
 #
   log_daemon_msg "Registering DIMM labels for $DESC" "${SERVICE} "
-  msg2=`$EDAC --register-labels`
+  $EDAC --register-labels 1>/dev/null 2>&1
+  rc=$?
+  case $rc in
+    0) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+    5) log_failure_msg ": No EDAC support for this hardware"; log_end_msg 1 ;;
+    *) log_failure_msg ": Unknown return code $rc. Please file a bug report"; log_end_msg 1;;
+   esac
 }
 
 ###############################################################################
