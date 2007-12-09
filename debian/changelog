@@ -1,23 +1,5 @@
-edac-utils (0.10-1~7.gbpf3b296) UNRELEASED; urgency=low
-
-  ** SNAPSHOT build @f3b296fd18c041e50eade30cc9e699ea870c9472 **
+edac-utils (0.10-1) unstable; urgency=low
 
   * Initial release (Closes: #445860)
-  * UNRELEASED
-  * setting up building
-  * ITP, depends, copyrights
-  * cleaning up unused .ex
-  * templated debian/control
-  * corrected for lintian warnings
-  * specifying what to install and where
-  * fixed installing from debian/tmp
-  * made -dbg, mv libedac{,1}, init script installed more or less
-    properly
-  * copied upstream init script for now. will have to be heavily
-    adjusted anyways
-  * removed parts of init script which according to upstream are
-    obsolete now
-  * fixed Depends of -dbg package to depend on libedac1
-  * added init script installation
 
- -- Yaroslav Halchenko <debian@onerussian.com>  Sat, 08 Dec 2007 23:05:17 -0500
+ -- Yaroslav Halchenko <debian@onerussian.com>  Sat, 08 Dec 2007 23:48:08 -0500
