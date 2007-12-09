@@ -1,6 +1,6 @@
-edac-utils (0.10-1~6.gbp5e0fa3) UNRELEASED; urgency=low
+edac-utils (0.10-1~7.gbpf3b296) UNRELEASED; urgency=low
 
-  ** SNAPSHOT build @5e0fa3bfed6e3af2c892935b9f6b3c6a06c79a2a **
+  ** SNAPSHOT build @f3b296fd18c041e50eade30cc9e699ea870c9472 **
 
   * Initial release (Closes: #445860)
   * UNRELEASED
@@ -18,5 +18,6 @@ edac-utils (0.10-1~6.gbp5e0fa3) UNRELEASED; urgency=low
   * removed parts of init script which according to upstream are
     obsolete now
   * fixed Depends of -dbg package to depend on libedac1
+  * added init script installation
 
- -- Yaroslav Halchenko <debian@onerussian.com>  Sun, 18 Nov 2007 23:08:05 -0500
+ -- Yaroslav Halchenko <debian@onerussian.com>  Sat, 08 Dec 2007 23:05:17 -0500
