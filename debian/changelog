@@ -1,3 +1,12 @@
+edac-utils (0.10-2) unstable; urgency=low
+
+  * Init script fixes: not printing starting message if VERBOSE==no, missing "no
+    effect" operation is added at the end (closes: #456644)
+  * Init script: added $local_fs as the required for start/stop,
+    meaningful message for error code 2 returned by starting command in init.d
+
+ -- Yaroslav Halchenko <debian@onerussian.com>  Wed, 02 Jan 2008 13:04:22 -0500
+
 edac-utils (0.10-1) unstable; urgency=low
 
   * Initial release (Closes: #445860)
