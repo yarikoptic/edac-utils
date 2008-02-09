@@ -1,11 +1,11 @@
 Name:      edac-utils
-Version:   0.10
+Version:   0.12
 Release:   1%{?dist}
 
 Summary:   Userspace helper for kernel EDAC drivers (ECC)
 Group:     Applications/System
 License:   GPL
-Source:    edac-utils-0.10.tar.bz2
+Source:    edac-utils-0.12.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}
 
 %{?el5:%define _with_libsysfs 1}
@@ -24,13 +24,15 @@ Requires: sysfsutils
 EDAC is the current set of drivers in the Linux kernel that handle
 detection of ECC errors from memory controllers for most chipsets
 on i386 and x86_64 architectures. This userspace component consists
-of an init script which makes sure EDAC drivers and DIMM labels
-are loaded at system startup, as well as a library and utility
-for reporting current error counts from the EDAC sysfs files.
+of a udev rules file which attempts to load DIMM labels after any
+EDAC drivers are loaded, and an init script which can be configured
+to load a specific EDAC driver if this is done automatically at system 
+startup. The package also includes a library and utility for reporting 
+current error counts from the EDAC sysfs files.
 
 
 %prep 
-%setup -n edac-utils-0.10
+%setup -n edac-utils-0.12
 
 %build
 %configure
@@ -65,5 +67,6 @@ fi
 %dir %attr(0755,root,root) %{_sysconfdir}/edac
 %config(noreplace) %{_sysconfdir}/edac/*
 %{_sysconfdir}/init.d/edac
+%{_sysconfdir}/udev/rules.d/*
 
 
