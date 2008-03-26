@@ -3,18 +3,19 @@
 include /usr/share/cdbs/1/rules/debhelper.mk
 include /usr/share/cdbs/1/class/autotools.mk
 
-INIT_SCRIPT=debian/edac-utils.edac.init
-
-$(INIT_SCRIPT): build
-	cp debian/tmp/etc/init.d/edac $@
-
-install/edac-utils:: $(INIT_SCRIPT)
-
-clean::
-	-rm -f $(INIT_SCRIPT)
+# Init script is deprecated in favor of udev
+# INIT_SCRIPT=debian/edac-utils.edac.init
+#
+# $(INIT_SCRIPT): build
+#	cp debian/tmp/etc/init.d/edac $@
+#
+# install/edac-utils:: $(INIT_SCRIPT)
+#
+#clean::
+#	-rm -f $(INIT_SCRIPT)
 
 DEB_DH_INSTALL_SOURCEDIR:=debian/tmp
-DEB_DH_INSTALLINIT_ARGS:=--name=edac -- defaults 50
+#DEB_DH_INSTALLINIT_ARGS:=--name=edac -- defaults 50
 
 # Add here any variable or target overrides you need.
 debian/control:: debian/control.in
