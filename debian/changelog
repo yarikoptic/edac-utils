@@ -1,3 +1,12 @@
+edac-utils (0.12-1) unstable; urgency=low
+
+  * New upstream release:
+    - installation of udev rules for edac-utils
+    - no need for init file
+  * Boosted policy version to 3.7.3 (no changes)
+
+ -- Yaroslav Halchenko <debian@onerussian.com>  Tue, 25 Mar 2008 23:09:06 -0400
+
 edac-utils (0.10-2) unstable; urgency=low
 
   * Init script fixes: not printing starting message if VERBOSE==no, missing "no
