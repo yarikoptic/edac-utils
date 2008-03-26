@@ -1,5 +1,5 @@
 /*****************************************************************************
- *  $Id: libedac.c 51 2007-05-07 21:39:23Z grondo $
+ *  $Id: libedac.c 75 2008-01-25 19:39:05Z grondo $
  *****************************************************************************
  *  Copyright (C) 2005-2007 The Regents of the University of California.
  *  Produced at Lawrence Livermore National Laboratory (cf, DISCLAIMER).
@@ -564,10 +564,13 @@ static int edac_totals_refresh (edac_handle *edac)
     struct dl_node *i;
 
 
-    if (edac->pci)
-        get_sysfs_uint_attr (edac->pci, 
-                             (unsigned int *) &edac->pci_parity_count, 
-                             "pci_parity_count");
+    if (edac->pci) {
+        int rc = get_sysfs_uint_attr (edac->pci, 
+                           (unsigned int *) &edac->pci_parity_count, 
+                           "pci_parity_count");
+        if (rc < 0)
+            return (-1);
+    }
 
     if (edac->mc_list->count == 0) {
         edac->error_num = EDAC_MC_OPEN_FAILED;

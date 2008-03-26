@@ -1,6 +1,6 @@
 #!/bin/sh
 ###############################################################################
-# $Id: edac.init.in 61 2007-06-20 21:43:08Z grondo $
+# $Id: edac.init.in 76 2008-02-08 22:57:23Z grondo $
 ###############################################################################
 # Copyright (C) 2006-2007 The Regents of the University of California.
 # Produced at Lawrence Livermore National Laboratory.
@@ -21,14 +21,27 @@
 ### END INIT INFO
 ###############################################################################
 
+unset SERVICE
+
 SERVICE="edac"
 DESC="Memory Error Detection and Correction"
 prefix="@prefix@"
 exec_prefix="@exec_prefix@"
 sbindir="@sbindir@"
+sysconfdir="@sysconfdir@"
 
 PATH=/sbin:/usr/sbin:/usr/local/sbin:/bin:/usr/bin:/usr/local/bin
-EDAC="$sbindir/edac-ctl"
+STATUS=0
+
+###############################################################################
+
+# Read configuration to see if we need to load 
+#  EDAC_DRIVER 
+# 
+for dir in "$sysconfdir/default" "$sysconfdir/sysconfig"; do
+  [ -f "$dir/$SERVICE" ] && . "$dir/$SERVICE"
+done
+
 
 ###############################################################################
 
@@ -44,15 +57,22 @@ service_start ()
 {
 # Start the service.  Required by LSB.
 #
-  [ "$VERBOSE" != no ] && log_daemon_msg "Registering DIMM labels for $DESC" "${SERVICE} "
-  $EDAC --register-labels 1>/dev/null 2>&1
+  [ -n "$EDAC_DRIVER" ] || return 0
+  modprobe $EDAC_DRIVER
   rc=$?
   case $rc in
     0) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
-    2) log_failure_msg ": Failed with error code 2. Usually since dmidecode needs to be ran by root"; log_end_msg 1 ;;
     5) log_failure_msg ": No EDAC support for this hardware"; log_end_msg 1 ;;
     *) log_failure_msg ": Unknown return code $rc. Please file a bug report"; log_end_msg 1;;
-   esac
+  esac
+}
+
+service_stop ()
+{
+  # Stop the service -- unload the module
+  [ -n "$EDAC_DRIVER" ] || return 0
+  modprobe -r $EDAC_DRIVER
+  return $?
 }
 
 ###############################################################################
@@ -68,23 +88,27 @@ service_status ()
 
 ###############################################################################
 
-rc=4
-
 case "$1" in
   start)
+    [ "$VERBOSE" != no ] && log_daemon_msg "Loading drivers for $DESC" "${SERVICE} "
     service_start
     ;;
   stop)
+    [ "$VERBOSE" != no ] && log_daemon_msg "Unloading drivers for $DESC" "${SERVICE} "
+    service_stop
     ;;
   status)
     service_status
     ;;
   restart|force-reload)
-    service_start
+    log_daemon_msg "Forcing reload of drivers for $DESC" "${SERVICE}"
+    service_stop  || log_end_msg 1
+    service_start && log_end_msg 0 || log_end_msg 1
+
     ;;
   *)
     COMMANDS="{start|stop|status|restart|force-reload}"
-    echo "Usage: $0 {${COMMANDS}}" >&2
+    echo "Usage: $0 ${COMMANDS}" >&2
     exit 3
     ;;
 esac
