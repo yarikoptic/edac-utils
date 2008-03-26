@@ -10,6 +10,12 @@ INIT_SCRIPT=debian/edac-utils.edac.init
 $(INIT_SCRIPT): build
 	cp debian/tmp/etc/init.d/edac $@
 
+# fight away rpath
+rpath-patch::
+	sed -i -r 's/(hardcode_into_libs=).*$$/\1=no/' configure
+
+DEB_CONFIGURE_INVOKE := make -f debian/rules rpath-patch; $(DEB_CONFIGURE_INVOKE)
+
 install/edac-utils:: $(INIT_SCRIPT)
 
 clean::
