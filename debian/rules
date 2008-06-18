@@ -12,7 +12,7 @@ $(INIT_SCRIPT): build
 
 # fight away rpath
 rpath-patch::
-	sed -i -r 's/(hardcode_into_libs=).*$$/\1=no/' configure
+	sed -i -r 's/(hardcode_(into_libs|runpath_var|direct|minus_L)=).*$$/\1no/' configure
 
 DEB_CONFIGURE_INVOKE := make -f debian/rules rpath-patch; $(DEB_CONFIGURE_INVOKE)
 
