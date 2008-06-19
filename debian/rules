@@ -6,9 +6,12 @@ include /usr/share/cdbs/1/class/autotools.mk
 DEB_CONFIGURE_USER_FLAGS=--disable-rpath
 
 INIT_SCRIPT=debian/edac-utils.edac.init
+UDEV_RULES=debian/edac-utils.udev
 
 $(INIT_SCRIPT): build
 	cp debian/tmp/etc/init.d/edac $@
+$(UDEV_RULES): build
+	cp src/etc/udev.rules $@
 
 # fight away rpath
 rpath-patch::
@@ -16,7 +19,7 @@ rpath-patch::
 
 DEB_CONFIGURE_INVOKE := make -f debian/rules rpath-patch; $(DEB_CONFIGURE_INVOKE)
 
-install/edac-utils:: $(INIT_SCRIPT)
+install/edac-utils:: $(INIT_SCRIPT) $(UDEV_RULES)
 
 clean::
 	-rm -f $(INIT_SCRIPT)
