@@ -4,8 +4,9 @@ edac-utils (0.12-1) unstable; urgency=low
     - installation of udev rules for edac-utils
     - init file does nothing by default
   * Boosted policy version to 3.7.3 (no changes)
+  * Build-depends on chrpath to fight rpath
 
- -- Yaroslav Halchenko <debian@onerussian.com>  Tue, 25 Mar 2008 23:09:06 -0400
+ -- Yaroslav Halchenko <debian@onerussian.com>  Thu, 19 Jun 2008 01:13:42 -0400
 
 edac-utils (0.10-2) unstable; urgency=low
 
