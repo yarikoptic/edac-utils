@@ -12,6 +12,8 @@ $(INIT_SCRIPT): build
 	cp debian/tmp/etc/init.d/edac $@
 $(UDEV_RULES): build
 	cp src/etc/udev.rules $@
+	# and lets take care about rpath hard way now
+	chrpath -d debian/tmp/usr/bin/edac-util
 
 # fight away rpath
 rpath-patch::
