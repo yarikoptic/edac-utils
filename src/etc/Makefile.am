@@ -1,5 +1,5 @@
 ##*****************************************************************************
-## $Id: Makefile.am 79 2008-02-26 18:10:40Z grondo $
+## $Id: Makefile.am 109 2008-12-31 19:10:58Z grondo $
 ##*****************************************************************************
 ## Process this file with automake to produce Makefile.in.
 ##*****************************************************************************
@@ -11,7 +11,7 @@ EXTRA_DIST = \
 
 install-data-local:
 	$(INSTALL) -m 755 -d "$(DESTDIR)$(sysconfdir)/init.d"; \
-	$(INSTALL) -m 755 $(srcdir)/edac.init \
+	$(INSTALL) -m 755 edac.init \
 	    "$(DESTDIR)$(sysconfdir)/init.d/edac"; \
 	$(INSTALL) -m 755 -d "$(DESTDIR)$(sysconfdir)/edac/"; \
 	$(INSTALL) -m 644 $(srcdir)/labels.db "$(DESTDIR)$(sysconfdir)/edac/"; 
