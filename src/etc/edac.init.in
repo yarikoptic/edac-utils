@@ -54,6 +54,9 @@ done
 # Define LSB log_* functions.
 . /lib/lsb/init-functions
 
+
+###############################################################################
+
 service_start ()
 {
 # Start the service.  Required by LSB.
@@ -125,15 +128,16 @@ case "$1" in
     service_status
     ;;
   restart|force-reload)
-    service_start
+    log_daemon_msg "Forcing reload of drivers for $DESC" "${SERVICE}"
+    service_stop  || log_end_msg 1
+    service_start && log_end_msg 0 || log_end_msg 1
     ;;
   *)
     COMMANDS="{start|stop|status|restart|force-reload}"
-    echo "Usage: $0 {${COMMANDS}}" >&2
+    echo "Usage: $0 ${COMMANDS}" >&2
     exit 3
     ;;
 esac
 
 # exit $STATUS
 :
-
