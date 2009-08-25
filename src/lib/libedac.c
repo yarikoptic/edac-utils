@@ -1,5 +1,5 @@
 /*****************************************************************************
- *  $Id: libedac.c 51 2007-05-07 21:39:23Z grondo $
+ *  $Id: libedac.c 93 2008-08-08 18:23:35Z grondo $
  *****************************************************************************
  *  Copyright (C) 2005-2007 The Regents of the University of California.
  *  Produced at Lawrence Livermore National Laboratory (cf, DISCLAIMER).
@@ -208,12 +208,12 @@ int edac_handle_reset (edac_handle *edac)
 
 int edac_error_totals (edac_handle *edac, struct edac_totals *tot)
 {
-    memset (tot, 0, sizeof (*tot));
-
     if ((edac == NULL) || (tot == NULL)) {
         errno = EINVAL;
         return (-1);
     }
+
+    memset (tot, 0, sizeof (*tot));
 
     if (!edac->totals_valid)  {
         if (edac_totals_refresh (edac) < 0) {
@@ -312,6 +312,14 @@ static inline void edac_dlist_reset (struct dlist *l)
     dlist_next (l);
 }
 
+static inline void remove_newline (char *str)
+{
+    int len = strlen (str);
+
+    if (len && str[len - 1] == '\n')
+        str[len - 1] = '\0';
+}
+
 static int
 edac_channel_refresh (struct edac_csrow *csrow, int id)
 {
@@ -335,6 +343,8 @@ edac_channel_refresh (struct edac_csrow *csrow, int id)
        && (chan->dimm_label[0] != '\n') ) {
         chan->dimm_label_valid = 1;
     }
+
+    remove_newline (chan->dimm_label);
 
     chan->valid = 1;
     return (0);
@@ -564,10 +574,13 @@ static int edac_totals_refresh (edac_handle *edac)
     struct dl_node *i;
 
 
-    if (edac->pci)
-        get_sysfs_uint_attr (edac->pci, 
-                             (unsigned int *) &edac->pci_parity_count, 
-                             "pci_parity_count");
+    if (edac->pci) {
+        int rc = get_sysfs_uint_attr (edac->pci, 
+                           (unsigned int *) &edac->pci_parity_count, 
+                           "pci_parity_count");
+        if (rc < 0)
+            return (-1);
+    }
 
     if (edac->mc_list->count == 0) {
         edac->error_num = EDAC_MC_OPEN_FAILED;

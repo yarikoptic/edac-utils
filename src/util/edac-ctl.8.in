@@ -1,5 +1,5 @@
 .\"****************************************************************************
-.\" $Id: edac-ctl.8.in 62 2007-06-21 15:10:05Z tim_small $
+.\" $Id: edac-ctl.8.in 96 2008-09-20 00:03:35Z grondo $
 .\"****************************************************************************
 .\" Copyright (C) 2006-2007 The Regents of the University of California.
 .\" Produced at Lawrence Livermore National Laboratory.
@@ -43,21 +43,10 @@ drivers.
 .BI "--help"
 Display a brief usage message.
 .TP
-.BI "--driver"
-Attempt to determine the name of a valid EDAC driver for the current
-hardware. This uses a driver database in /etc/edac/driver.db,
-along with the output of \fBlspci\fR(8).
-.TP
 .BI "--mainboard"
 Print mainboard vendor and model for this hardware, if available.
 This option requires that the \fBdmidecode\fR(8) utility be installed,
 and must be run as root.
-.TP
-.BI "--load"
-Load EDAC drivers.
-.TP
-.BI "--unload"
-Unload EDAC drivers.
 .TP
 .BI "--status"
 Print the status of EDAC drivers (loaded or unloaded).
@@ -65,8 +54,9 @@ Print the status of EDAC drivers (loaded or unloaded).
 .BI "--register-labels"
 Register motherboard DIMM labels into EDAC driver sysfs files.
 This option uses the detected mainboard manufacturer and model
-number in combination with a "labels database" file found
-in /etc/edac/labels.db. An entry for the current hardware must
+number in combination with a "labels database" found in any
+of the files under /etc/edac/labels.d/* or in the labels.db file
+at /etc/edac/labels.db. An entry for the current hardware must
 exist in the labels database for this option to do anything.
 .TP
 .BI "--print-labels"
@@ -75,9 +65,6 @@ well as the current labels registered with EDAC.
 .TP
 .BI "--labeldb="DB
 Specify an alternate location for the labels database.
-.TP
-.BI "--driverdb="DB
-Specify and alternate location for the EDAC driver database.
 
 .SH SEE ALSO
 \fBedac\fR(3), \fBedac-util\fR(1)

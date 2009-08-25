@@ -1,6 +1,6 @@
 #!/bin/sh
 ###############################################################################
-# $Id: edac.init.in 61 2007-06-20 21:43:08Z grondo $
+# $Id: edac.init.in 79 2008-02-26 18:10:40Z grondo $
 ###############################################################################
 # Copyright (C) 2006-2007 The Regents of the University of California.
 # Produced at Lawrence Livermore National Laboratory.
@@ -21,14 +21,30 @@
 ### END INIT INFO
 ###############################################################################
 
+unset SERVICE
+
 SERVICE="edac"
 DESC="Memory Error Detection and Correction"
 prefix="@prefix@"
 exec_prefix="@exec_prefix@"
 sbindir="@sbindir@"
+sysconfdir="@sysconfdir@"
+edac_ctl="$sbindir/edac-ctl"
 
 PATH=/sbin:/usr/sbin:/usr/local/sbin:/bin:/usr/bin:/usr/local/bin
-EDAC="$sbindir/edac-ctl"
+STATUS=0
+
+###############################################################################
+
+# Don't need to source /etc/init.d/functions at this time
+
+# Read configuration to see if we need to load 
+#  EDAC_DRIVER 
+# 
+for dir in "$sysconfdir/default" "$sysconfdir/sysconfig"; do
+  [ -f "$dir/$SERVICE" ] && . "$dir/$SERVICE"
+done
+
 
 ###############################################################################
 
@@ -38,21 +54,49 @@ EDAC="$sbindir/edac-ctl"
 # Define LSB log_* functions.
 . /lib/lsb/init-functions
 
-###############################################################################
-
 service_start ()
 {
 # Start the service.  Required by LSB.
 #
-  [ "$VERBOSE" != no ] && log_daemon_msg "Registering DIMM labels for $DESC" "${SERVICE} "
-  $EDAC --register-labels 1>/dev/null 2>&1
-  rc=$?
-  case $rc in
-    0) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
-    2) log_failure_msg ": Failed with error code 2. Usually since dmidecode needs to be ran by root"; log_end_msg 1 ;;
-    5) log_failure_msg ": No EDAC support for this hardware"; log_end_msg 1 ;;
-    *) log_failure_msg ": Unknown return code $rc. Please file a bug report"; log_end_msg 1;;
-   esac
+# Assume that if EDAC_DRIVER is not set, then EDAC is configured
+#  automatically, thus return successfully, but don't do anything.
+#
+  if [ -n "$EDAC_DRIVER" ]; then
+	 [ "$VERBOSE" != no ] && log_daemon_msg "Enabling ${DESC}: " "$SERVICE"
+     modprobe $EDAC_DRIVER
+     STATUS=$?
+     case $STATUS in 
+	   0) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+	   5) log_failure_msg "No EDAC support for this hardware"; log_end_msg 1 ;;
+	   *) log_failure_msg "failure with exit code $STATUS"; log_end_msg 1 ;;
+     esac
+  fi
+  log_daemon_msg "Loading DIMM labels for ${DESC}: " "$SERVICE"
+  $edac_ctl --register-labels --quiet
+  STATUS=$?
+  case $STATUS in
+   0) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+   *) log_failure_msg "failure with exit code $STATUS"; log_end_msg 1 ;;
+  esac
+}
+
+###############################################################################
+
+service_stop ()
+{
+  [ "$VERBOSE" != no ] && log_daemon_msg "Disabling $DESC" "$SERVICE"
+  if [ -n "$EDAC_DRIVER" ]; then
+    modprobe -r $EDAC_DRIVER
+	STATUS=$?
+	case $STATUS in
+	  0) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+	  *) log_failure_msg "failure with exit code $STATUS"; log_end_msg 1 ;;
+    esac
+  # No need to complaint if no driver is provided
+  #else
+  #  log_failure_msg "Not supported for this configuration."
+  #  STATUS=6
+  fi
 }
 
 ###############################################################################
@@ -62,19 +106,20 @@ service_status ()
 # Print the current status of the service.  Required by LSB.
 #
   log_daemon_msg "Status of $DESC"
-  $EDAC --status
-  rc=0
+  $edac_ctl --status
+  STATUS=0
 }
 
 ###############################################################################
 
-rc=4
+STATUS=4
 
 case "$1" in
   start)
     service_start
     ;;
   stop)
+	service_stop
     ;;
   status)
     service_status
@@ -89,4 +134,6 @@ case "$1" in
     ;;
 esac
 
+# exit $STATUS
 :
+

@@ -1,11 +1,11 @@
 Name:      edac-utils
-Version:   0.10
+Version:   0.16
 Release:   1%{?dist}
 
 Summary:   Userspace helper for kernel EDAC drivers (ECC)
 Group:     Applications/System
 License:   GPL
-Source:    edac-utils-0.10.tar.bz2
+Source:    edac-utils-0.16.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}
 
 %{?el5:%define _with_libsysfs 1}
@@ -24,13 +24,15 @@ Requires: sysfsutils
 EDAC is the current set of drivers in the Linux kernel that handle
 detection of ECC errors from memory controllers for most chipsets
 on i386 and x86_64 architectures. This userspace component consists
-of an init script which makes sure EDAC drivers and DIMM labels
-are loaded at system startup, as well as a library and utility
-for reporting current error counts from the EDAC sysfs files.
+an init script which loads EDAC DIMM labels at system boot, and can 
+optionally be configured to load a specific EDAC driver if this is 
+not done automatically at system startup. The package also includes a 
+library and utility for reporting current error counts from the EDAC 
+sysfs files.
 
 
 %prep 
-%setup -n edac-utils-0.10
+%setup -n edac-utils-0.16
 
 %build
 %configure
@@ -40,6 +42,8 @@ make %{_smp_mflags} CFLAGS="$RPM_OPT_FLAGS"
 rm -rf "$RPM_BUILD_ROOT"
 mkdir -p "$RPM_BUILD_ROOT"
 DESTDIR="$RPM_BUILD_ROOT" make install
+# Create labels.d dir
+mkdir -p $RPM_BUILD_ROOT/%{_sysconfdir}/edac/labels.d
 
 %clean
 rm -rf "$RPM_BUILD_ROOT"
@@ -63,7 +67,6 @@ fi
 %{_mandir}/*/*
 %{_includedir}/edac.h
 %dir %attr(0755,root,root) %{_sysconfdir}/edac
-%config(noreplace) %{_sysconfdir}/edac/*
+%dir %attr(0755,root,root) %{_sysconfdir}/edac/labels.d
+%config(noreplace) %{_sysconfdir}/edac/labels.db
 %{_sysconfdir}/init.d/edac
-
-

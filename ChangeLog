@@ -1,3 +1,143 @@
+2008-12-31 Mark Grondona <mgrondona@llnl.gov>
+
+	* : tag v0.16.
+
+	* src/etc/Makefile.am, src/etc/Makefile.in :
+	  Remove builddir from edac.init install source path.
+	  It doesn't seem to be definied in my version of automake.
+
+	* src/util/edac-util.c :
+	  Support more than two channels, and suppress output
+	  of non-existent channels at runtime.
+
+	* src/lib/edac.h :
+	  Increase EDAC_MAX_CHANNELS from 2 to 6.
+
+2008-12-18 Mark Grondona <mgrondona@llnl.gov>
+
+	* src/etc/Makefile.am, src/etc/Makefile.in :
+	  Allow edac-utils to be correctly built and installed
+	  out-of-tree.  Grant Erickson <gerickson at nuovations.com>.
+
+2008-09-25 Mark Grondona <mgrondona@llnl.gov>
+
+	* src/etc/labels.db :
+	  Add DIMM labels for ASUSTeK Computer INC. M3A32-MVP DELUXE.
+
+2008-09-22 Mark Grondona <mgrondona@llnl.gov>
+
+	* : tag v0.15.
+
+	* edac-utils.spec :
+	  Create labels.d directory under /etc/edac as part of RPM.
+
+2008-09-19 Mark Grondona <mgrondona@llnl.gov>
+
+	* src/util/edac-ctl.8.in :
+	  Document /etc/edac/labels.d/ directory.
+
+	* src/util/edac-ctl.in :
+	  Allow multiple labeldb files to appear under /etc/edac/labels.d/*.
+	  This is in addition to the existing labels.db file, and 
+	  should allow sites to more easily add DIMM labels to edac
+	  by just dropping a file int /etc/edac/labels.d/.
+
+	* src/util/edac-ctl.in : 
+	  Try to obtain DMI values from sysfs (/sys/class/dmi/id/board*)
+	  first and fall back to dmidecode if this method fails.
+
+	* src/util/edac-ctl.in :
+	  When processing dmidecode output, don't include
+	  the "System Information" stanza, which has been seen
+	  to include bogus data. The MB vendor and model is in
+	  the "Base Board Information" stanza.
+
+2008-08-08 Mark Grondona <mgrondona@llnl.gov>
+
+	* src/lib/libedac.c (edac_error_totals) : 
+	  Don't memset tot before it is checked for NULL.
+
+2008-05-30 Mark Grondona <mgrondona@llnl.gov>
+
+	* : tag v0.14.
+
+	* src/util/edac-ctl.1.in :
+	  Clean up some language and fix typos.
+
+	* src/etc/labels.db : 
+	  Add labels for Supermicro H8DA3-2.
+
+	* src/lib/libedac.c : 
+	  Remove any newlines in EDAC DIMM labels names.
+
+2008-02-26 Mark Grondona <mgrondona@llnl.gov>
+
+	* : tag v0.13.
+
+	* configure, src/etc/Makefile.am :
+	  Re-run ./bootstrap.
+
+	* src/util/edac-ctl.in : 
+	  Improve quietness with --quiet option.
+
+	* src/etc/edac.init.in : 
+	  Load EDAC DIMM labels in init script.
+
+	* src/etc/udev.rules.in, src/etc/Makefile.am, configure.ac  :
+	  Remove udev rules file. Using udev rules to trigger the load
+	  of EDAC DIMM labels is not reliable as the rules are triggered
+	  too early on boot (and edac-ctl script may not even be availble
+	  at that time.)
+
+2008-02-08 Mark Grondona <mgrondona@llnl.gov>
+
+	* : tag v0.12.
+
+2008-02-08 Mark Grondona <mgrondona@llnl.gov>
+
+	* src/util/edac-ctl.in, src/util/edac-util.8.in : 
+	  Remove --load, --unload, and --driver options. 
+	  These aren't needed since EDAC drivers will be 
+	  automatically loaded on most current distros.
+
+	* src/etc/driver.db : Removed.
+
+	* src/etc/edac.init.in : Remove driver load/unload 
+	  functionality which is unnecessary. Init script now does
+	  nothing unless /etc/sysconfig/edac exists and sets
+	  $EDAC_DRIVER (Fallback case).
+
+	* src/etc/udev.rules.in : Add udev rules file to 
+	  automatically register DIMM labels using edac-ctl
+	  when an EDAC driver is loaded. (Replaces similar 
+	  functionality from init script).
+
+	* src/etc/Makefile.am, configure.ac, edac-utils.spec : 
+	  Create and install udev rules.
+
+	* configure, src/etc/Makefile.in :
+	  Re-run bootstrap.
+
+2008-01-25 Mark Grondona <mgrondona@llnl.gov>
+
+	* src/lib/libedac.c (edac_totals_refresh) :
+	  Fix unchecked return code as found by Coverity.
+
+2007-11-06 Mark Grondona <mgrondona@llnl.gov>
+
+	* src/etc/labels.db : Add Dell PowerEdge 1850 and Asus A85NX, A8N-E,
+	  and "KFN5-D SLI" to labels database.
+
+	* src/util/edac-ctl.in : Allow parsing of `lspci -n` output without
+	  "Class" string (lspci 2.2.3).
+
+	* : tag v0.11.
+
+2007-10-12 Mark Grondona <mgrondona@llnl.gov>
+
+	* debian/ : Remove debian directory as requested by 
+	  Yaroslav Halchenko <debian at onerussian.com>
+
 2007-06-29 Mark Grondona <mgrondona@llnl.gov>
 
 	* edac-utils.spec : sysfsutils-devel was renamed libsysfs-devel
