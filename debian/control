@@ -4,7 +4,7 @@ Priority: extra
 Maintainer: Yaroslav Halchenko <debian@onerussian.com>
 Uploaders: Tim Small <tim@buttersideup.com>
 Build-Depends: cdbs, debhelper (>= 5), autotools-dev, libsysfs-dev, chrpath
-Standards-Version: 3.7.3
+Standards-Version: 3.8.3
 Homepage: http://sourceforge.net/projects/edac-utils
 Vcs-Git: http://git.onerussian.com/vcs/edac-utils
 Vcs-Browser: http://git.onerussian.com/?p=edac-utils
