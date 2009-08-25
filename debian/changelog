@@ -9,8 +9,11 @@ edac-utils (0.16-1~pre1) UNRELEASED; urgency=low
    * Adjusted debian/watch to monitor upstream
    * Boosted policy to 3.8.3
    * -dbg went to debug section
+  * BF: adjusted init script to have runlevels in line with Debian, and
+    Require- to not include named but use remote_fs for /usr (Closes:
+    #541240), thanks Petter Reinholdtsen
 
- -- Yaroslav Halchenko <debian@onerussian.com>  Tue, 25 Aug 2009 12:44:28 -0400
+ -- Yaroslav Halchenko <debian@onerussian.com>  Tue, 25 Aug 2009 14:56:02 -0400
 
 edac-utils (0.12-1) unstable; urgency=low
 
