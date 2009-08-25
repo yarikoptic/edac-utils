@@ -65,20 +65,23 @@ service_start ()
 #  automatically, thus return successfully, but don't do anything.
 #
   if [ -n "$EDAC_DRIVER" ]; then
-	 [ "$VERBOSE" != no ] && log_daemon_msg "Enabling ${DESC}: " "$SERVICE"
+     log_daemon_msg "Enabling ${DESC}: " "$SERVICE"
      modprobe $EDAC_DRIVER
      STATUS=$?
      case $STATUS in 
-	   0) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
-	   5) log_failure_msg "No EDAC support for this hardware"; log_end_msg 1 ;;
-	   *) log_failure_msg "failure with exit code $STATUS"; log_end_msg 1 ;;
+       0) log_end_msg 0 ;;
+       5) log_failure_msg "No EDAC support for this hardware"; log_end_msg 1 ;;
+       *) log_failure_msg "failure with exit code $STATUS"; log_end_msg 1 ;;
      esac
+  else
+      log_daemon_msg "Not enabling ${DESC} since EDAC_DRIVER is not set"
+      log_end_msg 0
   fi
   log_daemon_msg "Loading DIMM labels for ${DESC}: " "$SERVICE"
   $edac_ctl --register-labels --quiet
   STATUS=$?
   case $STATUS in
-   0) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+   0) log_end_msg 0 ;;
    *) log_failure_msg "failure with exit code $STATUS"; log_end_msg 1 ;;
   esac
 }
@@ -87,18 +90,18 @@ service_start ()
 
 service_stop ()
 {
-  [ "$VERBOSE" != no ] && log_daemon_msg "Disabling $DESC" "$SERVICE"
   if [ -n "$EDAC_DRIVER" ]; then
+
     modprobe -r $EDAC_DRIVER
-	STATUS=$?
-	case $STATUS in
-	  0) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
-	  *) log_failure_msg "failure with exit code $STATUS"; log_end_msg 1 ;;
+    STATUS=$?
+    case $STATUS in
+      0) log_end_msg 0 ;;
+      *) log_failure_msg "failure with exit code $STATUS"; log_end_msg 1 ;;
     esac
-  # No need to complaint if no driver is provided
-  #else
-  #  log_failure_msg "Not supported for this configuration."
-  #  STATUS=6
+  else
+    [ "$VERBOSE" != no ] && log_daemon_msg "Not disabling $DESC since EDAC_DRIVER is not set" "$SERVICE"
+    # No need to complaint if no driver is provided
+    # STATUS=6
   fi
 }
 
@@ -122,7 +125,7 @@ case "$1" in
     service_start
     ;;
   stop)
-	service_stop
+    service_stop
     ;;
   status)
     service_status
