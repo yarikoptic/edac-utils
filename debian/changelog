@@ -1,4 +1,4 @@
-edac-utils (0.16.1~d1-1~pre1) UNRELEASED; urgency=low
+edac-utils (0.16-1~pre1) UNRELEASED; urgency=low
 
   * New Upstream version 0.16 (closes: #542304) with cherry picked
     fixed for the library versioning from 0.16.1 (tagged upstream
