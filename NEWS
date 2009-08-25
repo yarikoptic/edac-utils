@@ -1,3 +1,28 @@
+Version 0.16 (20080-12-31);
+ - Fix out-of-tree builds of edac-utils.
+ - Support up to 6 channels with edac-utils and libedac. Applications
+    directly linked to libedac will need to be recompiled to take advantage
+    of this change.
+ - Add DIMM labels for ASUSTeK Computer INC. M3A32-MVP DELUXE.
+
+version 0.15 (2008-09-22):
+ - DIMM label information may now be stored in separate files
+   under a labels.d directory (e.g. /etc/edac/labels.d/*), in addition
+   to the labels.db file.
+ - Preferentially read mainboard information from sysfs if available.
+ - Don't parse dmidecode "System information" section, use 
+   "Board Information" instead.
+
+version 0.14 (2008-05-30):
+ - Fix typos in edac-util(1) man page.
+ - Remove any extra newlines on EDAC DIMM labels.
+ - Add Supermicro H8DA3-2 DIMM labels to label db.
+
+version 0.13 (2008-02-26):
+ - Abandon use of udev rules to load EDAC DIMM labels. Most often
+   the udev rules were called too early in boot to be effective.
+ - Reinstate load of DIMM labels in EDAC init script.
+
 version 0.12 (2008-02-08):
  - The edac-ctl script is no longer responsible for the load and unload
    of EDAC drivers. The drivers will automatically be loaded in most

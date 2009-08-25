@@ -1,5 +1,5 @@
 ##*****************************************************************************
-## $Id: configure.ac 76 2008-02-08 22:57:23Z grondo $
+## $Id: configure.ac 80 2008-02-26 18:11:19Z grondo $
 ##*****************************************************************************
 ## Process this file with autoconf to produce a configure script.
 ##*****************************************************************************
@@ -66,7 +66,6 @@ AC_CONFIG_FILES([
    src/util/edac-ctl
    src/etc/Makefile
    src/etc/edac.init
-   src/etc/udev.rules
  ]
 )
 
