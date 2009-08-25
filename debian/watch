@@ -1,3 +1,4 @@
 version=3
-http://sf.net/edac-utils/edac-utils-(.*)\.tar\.bz2 debian git-import-orig
+opts="downloadurlmangle=s/http:.*\.debian\.org(.*)\/(\d+\.\d+)\//http:\/\/mirrorservice.org$1\/$2\/edac-utils-$2.tar.bz2/,filenamemangle=s/.*\/(\d+\.\d+)\//edac-utils-$1.tar.bz2/" \
+ http://sf.net/edac-utils/edac-utils/ .*/(\d+\.\d+)/ debian git-import-orig
 
