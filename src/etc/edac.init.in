@@ -54,6 +54,7 @@ done
 # Define LSB log_* functions.
 . /lib/lsb/init-functions
 
+
 ###############################################################################
 
 service_start ()
@@ -64,30 +65,41 @@ service_start ()
 #  automatically, thus return successfully, but don't do anything.
 #
   if [ -n "$EDAC_DRIVER" ]; then
-     echo -n "Starting ${SERVICE}: "
+	 [ "$VERBOSE" != no ] && log_daemon_msg "Enabling ${DESC}: " "$SERVICE"
      modprobe $EDAC_DRIVER
      STATUS=$?
      case $STATUS in 
-       0) echo success ;;
-       5) echo No EDAC support for this hardware. ;;
-       *) echo failure ;;
+	   0) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+	   5) log_failure_msg "No EDAC support for this hardware"; log_end_msg 1 ;;
+	   *) log_failure_msg "failure with exit code $STATUS"; log_end_msg 1 ;;
      esac
   fi
-  echo -n "Loading ${SERVICE} DIMM labels: "
+  log_daemon_msg "Loading DIMM labels for ${DESC}: " "$SERVICE"
   $edac_ctl --register-labels --quiet
   STATUS=$?
   case $STATUS in
-   0) echo success ;;
-   *) echo failure ;;
+   0) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+   *) log_failure_msg "failure with exit code $STATUS"; log_end_msg 1 ;;
   esac
 }
 
+###############################################################################
+
 service_stop ()
 {
-  # Stop the service -- unload the module
-  [ -n "$EDAC_DRIVER" ] || return 0
-  modprobe -r $EDAC_DRIVER
-  return $?
+  [ "$VERBOSE" != no ] && log_daemon_msg "Disabling $DESC" "$SERVICE"
+  if [ -n "$EDAC_DRIVER" ]; then
+    modprobe -r $EDAC_DRIVER
+	STATUS=$?
+	case $STATUS in
+	  0) [ "$VERBOSE" != no ] && log_end_msg 0 ;;
+	  *) log_failure_msg "failure with exit code $STATUS"; log_end_msg 1 ;;
+    esac
+  # No need to complaint if no driver is provided
+  #else
+  #  log_failure_msg "Not supported for this configuration."
+  #  STATUS=6
+  fi
 }
 
 ###############################################################################
@@ -97,20 +109,18 @@ service_status ()
 # Print the current status of the service.  Required by LSB.
 #
   log_daemon_msg "Status of $DESC"
-  $EDAC --status
-  rc=0
+  $edac_ctl --status
+  STATUS=0
 }
 
 ###############################################################################
 
 case "$1" in
   start)
-    [ "$VERBOSE" != no ] && log_daemon_msg "Loading drivers for $DESC" "${SERVICE} "
     service_start
     ;;
   stop)
-    [ "$VERBOSE" != no ] && log_daemon_msg "Unloading drivers for $DESC" "${SERVICE} "
-    service_stop
+	service_stop
     ;;
   status)
     service_status
@@ -119,7 +129,6 @@ case "$1" in
     log_daemon_msg "Forcing reload of drivers for $DESC" "${SERVICE}"
     service_stop  || log_end_msg 1
     service_start && log_end_msg 0 || log_end_msg 1
-
     ;;
   *)
     COMMANDS="{start|stop|status|restart|force-reload}"
@@ -128,4 +137,5 @@ case "$1" in
     ;;
 esac
 
+# exit $STATUS
 :
