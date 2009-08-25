@@ -10,7 +10,8 @@ INIT_SCRIPT=debian/edac-utils.edac.init
 $(INIT_SCRIPT): build
 	cp debian/tmp/etc/init.d/edac $@
 
-install/edac-utils:: $(INIT_SCRIPT) $(UDEV_RULES)
+install/edac-utils:: $(INIT_SCRIPT) 
+	chrpath -d debian/edac-utils/usr/bin/edac-util
 
 clean::
 	-rm -f $(INIT_SCRIPT)
