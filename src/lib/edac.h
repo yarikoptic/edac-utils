@@ -1,5 +1,5 @@
 /*****************************************************************************
- *  $Id: edac.h 51 2007-05-07 21:39:23Z grondo $
+ *  $Id: edac.h 104 2008-12-31 18:52:56Z grondo $
  *****************************************************************************
  *  Copyright (C) 2005-2007 The Regents of the University of California.
  *  Produced at Lawrence Livermore National Laboratory (cf, DISCLAIMER).
@@ -45,7 +45,7 @@
 
 #define EDAC_NAME_LEN      64
 #define EDAC_LABEL_LEN    256
-#define EDAC_MAX_CHANNELS   2
+#define EDAC_MAX_CHANNELS   6
 
 #define edac_for_each_mc_info(__h, __mc, __i) \
     for (edac_handle_reset (__h), __mc = edac_next_mc_info (__h, &__i); \
