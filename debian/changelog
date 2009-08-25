@@ -1,8 +1,12 @@
-edac-utils (0.12-2) UNRELEASED; urgency=low
+edac-utils (0.16-1~pre1) UNRELEASED; urgency=low
 
+  * New Upstream version 0.16 (closes: #542304)
+  * Udev rules were abandoned upstream (closes: #542308)
   * Adjusted vcs paths in the header
+  * Adjusted debian/watch to monitor upstream
+  * Boosted policy to 3.8.3
 
- -- Yaroslav Halchenko <debian@onerussian.com>  Thu, 17 Jul 2008 11:24:11 -0400
+ -- Yaroslav Halchenko <debian@onerussian.com>  Tue, 25 Aug 2009 12:44:28 -0400
 
 edac-utils (0.12-1) unstable; urgency=low
 
