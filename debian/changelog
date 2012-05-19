@@ -1,3 +1,9 @@
+edac-utils (0.18-1) UNRELEASED; urgency=low
+
+  * debian/watch - updated to monitor fresh github repository
+
+ -- Yaroslav Halchenko <debian@onerussian.com>  Fri, 18 May 2012 22:22:14 -0400
+
 edac-utils (0.16-1) unstable; urgency=low
 
   * New Upstream version 0.16 (closes: #542304) with cherry picked
