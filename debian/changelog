@@ -1,5 +1,7 @@
 edac-utils (0.18-1) unstable; urgency=low
 
+  * Switched to 3.0 (quilt) format -- changes absorbed into
+    deb_init_script patch
   * debian/watch - updated to monitor fresh github repository
   * debian/gbp.conf -- switching to build based on top of upstream's git
   * use dh_autoreconf to force autoreconf (Closes: #558500)
