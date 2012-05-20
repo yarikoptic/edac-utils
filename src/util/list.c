@@ -1,5 +1,5 @@
 /*****************************************************************************
- *  $Id: list.c 51 2007-05-07 21:39:23Z grondo $
+ *  $Id$
  *****************************************************************************
  *  Copyright (C) 2001-2007 The Regents of the University of California.
  *  Produced at Lawrence Livermore National Laboratory (cf, DISCLAIMER).
