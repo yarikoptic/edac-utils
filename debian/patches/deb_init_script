@@ -65,7 +65,7 @@ index 07aab94..4676ffd
  #
    if [ -n "$EDAC_DRIVER" ]; then
 -     echo -n "Starting ${SERVICE}: "
-+     log_daemon_msg "Enabling ${DESC}: " "$SERVICE"
++     log_daemon_msg "Enabling ${DESC}" "$SERVICE"
       modprobe $EDAC_DRIVER
       STATUS=$?
       case $STATUS in 
@@ -81,7 +81,7 @@ index 07aab94..4676ffd
 +      log_end_msg 0
    fi
 -  echo -n "Loading ${SERVICE} DIMM labels: "
-+  log_daemon_msg "Loading DIMM labels for ${DESC}: " "$SERVICE"
++  log_daemon_msg "Loading DIMM labels for ${DESC}" "$SERVICE"
    $edac_ctl --register-labels --quiet
    STATUS=$?
    case $STATUS in
