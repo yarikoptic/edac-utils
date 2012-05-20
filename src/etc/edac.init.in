@@ -1,6 +1,6 @@
 #!/bin/sh
 ###############################################################################
-# $Id: edac.init.in 79 2008-02-26 18:10:40Z grondo $
+# $Id$
 ###############################################################################
 # Copyright (C) 2006-2007 The Regents of the University of California.
 # Produced at Lawrence Livermore National Laboratory.

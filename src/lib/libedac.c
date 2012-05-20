@@ -1,5 +1,5 @@
 /*****************************************************************************
- *  $Id: libedac.c 93 2008-08-08 18:23:35Z grondo $
+ *  $Id$
  *****************************************************************************
  *  Copyright (C) 2005-2007 The Regents of the University of California.
  *  Produced at Lawrence Livermore National Laboratory (cf, DISCLAIMER).
@@ -172,6 +172,7 @@ void edac_handle_destroy (edac_handle *edac)
         sysfs_close_device_tree (edac->dev); 
     if (edac->pci)
         sysfs_close_device (edac->pci);
+    free (edac);
     return;
 }
 

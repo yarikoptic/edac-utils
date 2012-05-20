@@ -1,5 +1,5 @@
 /*****************************************************************************
- *  $Id: edac-util.c 105 2008-12-31 18:53:22Z grondo $
+ *  $Id: edac-util.c 51 2007-05-07 21:39:23Z grondo $
  *****************************************************************************
  *  Copyright (C) 2005-2007 The Regents of the University of California.
  *  Produced at Lawrence Livermore National Laboratory (cf, DISCLAIMER).
@@ -210,6 +210,8 @@ prog_ctx_fini (struct prog_ctx *ctx)
         list_destroy (ctx->reports);
     if (ctx->edac)
         edac_handle_destroy (ctx->edac);
+    if (ctx->progname)
+        free (ctx->progname);
     return;
 }
 
@@ -276,6 +278,8 @@ parse_cmdline (struct prog_ctx *ctx, int ac, char **av)
 
     if (!(ctx->reports = report_list_create (l)))
         exit (1);
+
+    list_destroy (l);
 
     return;
 }
@@ -468,7 +472,7 @@ static void default_report (struct prog_ctx *ctx)
         }
     }
 
-    if (!count && !ctx->verbose)
+    if (!count && !ctx->quiet)
         fprintf (stdout, "edac-util: No errors to report.\n");
 
     edac_handle_reset (ctx->edac);

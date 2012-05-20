@@ -1,5 +1,5 @@
 /*****************************************************************************
- *  $Id: edac.h 104 2008-12-31 18:52:56Z grondo $
+ *  $Id$
  *****************************************************************************
  *  Copyright (C) 2005-2007 The Regents of the University of California.
  *  Produced at Lawrence Livermore National Laboratory (cf, DISCLAIMER).

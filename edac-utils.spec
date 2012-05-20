@@ -1,11 +1,11 @@
 Name:      edac-utils
-Version:   0.16
-Release:   1%{?dist}
+Version:   See META
+Release:   See META
 
 Summary:   Userspace helper for kernel EDAC drivers (ECC)
 Group:     Applications/System
 License:   GPL
-Source:    edac-utils-0.16.tar.bz2
+Source:    %{name}-%{version}.tgz
 BuildRoot: %{_tmppath}/%{name}-%{version}
 
 %{?el5:%define _with_libsysfs 1}
@@ -32,7 +32,7 @@ sysfs files.
 
 
 %prep 
-%setup -n edac-utils-0.16
+%setup
 
 %build
 %configure

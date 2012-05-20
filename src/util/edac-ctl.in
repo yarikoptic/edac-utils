@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 #******************************************************************************
-#  $Id: edac-ctl.in 96 2008-09-20 00:03:35Z grondo $
+#  $Id$
 #******************************************************************************
 #  Copyright (C) 2003-2006 The Regents of the University of California.
 #  Produced at Lawrence Livermore National Laboratory (cf, DISCLAIMER).
@@ -30,7 +30,7 @@ use Getopt::Long;
 
 my $prefix      = "@prefix@";
 my $sysconfdir  = "@sysconfdir@";
-my $dmidecode   = find_prog ("dmidecode") or exit (1);
+my $dmidecode   = find_prog ("dmidecode");
 my $modprobe    = find_prog ("modprobe")  or exit (1);
 
 my %conf        = ();
@@ -38,6 +38,7 @@ my %bus         = ();
 my $prog        = basename $0;
 $conf{labeldb}  = "$sysconfdir/edac/labels.db";
 $conf{labeldir} = "$sysconfdir/edac/labels.d";
+$conf{mbconfig} = "$sysconfdir/edac/mainboard";
 
 
 my $status      = 0;
@@ -164,6 +165,7 @@ sub get_mainboard_info {
 
 sub guess_vendor_model_dmidecode {
     my ($vendor, $model);
+    my ($system_vendor, $system_model);
     my $line = 0;
 
     $< == 0 || die "Must be root to run dmidecode\n";
@@ -176,20 +178,30 @@ sub guess_vendor_model_dmidecode {
     while (<DMI>) {
         $line++;
 
-        /^(\s*)(board|base board) information/i || next LINE;
+        /^(\s*)(board|base board|system) information/i || next LINE;
         my $indent = $1;
+	my $type = $2;
 
         while ( <DMI> ) {
             /^(\s*)/;
             $1 lt $indent && last LINE;
             $indent = $1;
-            /(?:manufacturer|vendor):\s*(.*\S)\s*/i && ( $vendor = $1 );
-            /product(?: name)?:\s*(.*\S)\s*/i       && ( $model  = $1 );
+            if ($type eq "system") {
+                /(?:manufacturer|vendor):\s*(.*\S)\s*/i && ( $system_vendor = $1 );
+                /product(?: name)?:\s*(.*\S)\s*/i       && ( $system_model  = $1 );
+            } else {
+                /(?:manufacturer|vendor):\s*(.*\S)\s*/i && ( $vendor = $1 );
+                /product(?: name)?:\s*(.*\S)\s*/i       && ( $model  = $1 );
+            }
             last LINE if ($vendor && $model);
         }
     }
 
     close (DMI);
+
+    $vendor = $system_vendor if ($vendor eq "");
+    $model = $system_model if ($model eq "");
+
     return ($vendor, $model);
 }
 
@@ -212,8 +224,51 @@ sub guess_vendor_model_sysfs {
     return ($vendor, $model);
 }
 
+sub parse_mainboard_config
+{
+    my ($file) = @_;
+    my %hash = ();
+    my $line = 0;
+
+    open (CFG, "$file") or die "Failed to read mainboard config: $file: $!\n";
+    while (<CFG>) {
+        $line++;
+        chomp;                                          # remove newline
+        s/^((?:[^'"#]*(?:(['"])[^\2]*\2)*)*)#.*/$1/;    # remove comments
+        s/^\s+//;                                       # remove leading space
+        s/\s+$//;                                       # remove trailing space
+        next unless length;                             # skip blank lines
+        if (my ($key, $val) = /^\s*([-\w]+)\s*=\s*(.*)/) {
+            $hash{$key}{val} = $val;
+            $hash{$key}{line} = $line;
+            next;
+        }
+        return undef;
+    }
+    close (CFG) or &log_error ("close $file: $!\n");
+    return \%hash;
+}
+
 sub guess_vendor_model {
-    my ($vendor, $model) = &guess_vendor_model_sysfs ();
+    my ($vendor, $model);
+    #
+    #  If mainboard config file exists then parse it 
+    #   to get the vendor and model information.
+    #
+    if (-f $conf{mbconfig} ) {
+        my $cfg = &parse_mainboard_config ($conf{mbconfig});
+
+        #  If mainboard config file specified a script, then try to
+        #   run the specified script or executable:
+        #
+        if ($cfg->{"script"}) {
+            $cfg = &parse_mainboard_config ("$cfg->{script}{val} |");
+            die "Failed to run mainboard script\n" if (!$cfg);
+        }
+        return ($cfg->{vendor}{val}, $cfg->{model}{val});
+    }
+
+    ($vendor, $model) = &guess_vendor_model_sysfs ();
 
     return ($vendor, $model) if ($vendor && $model);
 
@@ -392,7 +447,7 @@ sub find_prog
     for my $dir ("/sbin", "/usr/sbin", split ':', $ENV{PATH}) {
         return "$dir/$file" if -x "$dir/$file";
     }
-    log_error ("Failed to find $file in PATH\n");
+    # log_error ("Failed to find $file in PATH\n");
     return "";
 }
 
