@@ -1,8 +1,10 @@
-edac-utils (0.18-1) UNRELEASED; urgency=low
+edac-utils (0.18-1) unstable; urgency=low
 
   * debian/watch - updated to monitor fresh github repository
   * debian/gbp.conf -- switching to build based on top of upstream's git
   * use dh_autoreconf to force autoreconf (Closes: #558500)
+  * debian/control -- boosted policy to 3.9.3 (no further changes)
+  * adjusted forgotten debian/control.in
 
  -- Yaroslav Halchenko <debian@onerussian.com>  Fri, 18 May 2012 22:22:14 -0400
 
