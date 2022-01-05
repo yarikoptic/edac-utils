@@ -9,6 +9,7 @@ Source:    %{name}-%{version}.tgz
 BuildRoot: %{_tmppath}/%{name}-%{version}
 
 %{?el5:%define _with_libsysfs 1}
+%{?el6:%define _with_libsysfs 1}
 
 %if 0%{?_with_libsysfs}
 BuildRequires: libsysfs-devel
@@ -60,7 +61,7 @@ fi
 
 %files
 %defattr(-,root,root,0755)
-%doc README NEWS ChangeLog DISCLAIMER
+%doc README NEWS DISCLAIMER
 %{_sbindir}/edac-ctl
 %{_bindir}/edac-util
 %{_libdir}/*
