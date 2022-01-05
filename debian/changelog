@@ -1,11 +1,15 @@
-edac-utils (0.18-1.1) unstable; urgency=medium
+edac-utils (0.18+git12-gd98769e-1) unstable; urgency=medium
 
+  [ Stephen Kitt ]
   * Non-maintainer upload.
   * Bump to debhelper compatibility level 10. Closes: #965507. Level 10
     is the last level usable with cdbs in packages installing init
     scripts; see #885407 for details.
 
- -- Stephen Kitt <skitt@debian.org>  Wed, 05 Jan 2022 13:18:58 +0100
+  [ Yaroslav Halchenko ]
+  * Incorporate changes from upstream git for 0.18-12-gd98769e
+
+ -- Yaroslav Halchenko <debian@onerussian.com>  Wed, 05 Jan 2022 11:35:31 -0500
 
 edac-utils (0.18-1) unstable; urgency=low
 
