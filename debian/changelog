@@ -1,3 +1,12 @@
+edac-utils (0.18-1.1) unstable; urgency=medium
+
+  * Non-maintainer upload.
+  * Bump to debhelper compatibility level 10. Closes: #965507. Level 10
+    is the last level usable with cdbs in packages installing init
+    scripts; see #885407 for details.
+
+ -- Stephen Kitt <skitt@debian.org>  Wed, 05 Jan 2022 13:18:58 +0100
+
 edac-utils (0.18-1) unstable; urgency=low
 
   * Switched to 3.0 (quilt) format -- changes absorbed into
