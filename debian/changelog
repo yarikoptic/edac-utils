@@ -8,6 +8,7 @@ edac-utils (0.18+git12-gd98769e-1) unstable; urgency=medium
 
   [ Yaroslav Halchenko ]
   * Incorporate changes from upstream git for 0.18-12-gd98769e
+  * Add a patch to produce fake ChangeLog to satisfy autotools
 
  -- Yaroslav Halchenko <debian@onerussian.com>  Wed, 05 Jan 2022 11:35:31 -0500
 
