@@ -6,7 +6,7 @@ Uploaders: Tim Small <tim@buttersideup.com>
 Build-Depends: cdbs, debhelper (>= 10), libsysfs-dev, chrpath
 Standards-Version: 3.9.3
 Homepage: https://github.com/grondo/edac-utils
-Vcs-Git: git://git.oneukrainian.com/deb/edac-utils
+Vcs-Git: http://git.oneukrainian.com/pub/deb/edac-utils.git
 Vcs-Browser: http://git.oneukrainian.com/?p=deb/edac-utils.git
 
 Package: edac-utils
