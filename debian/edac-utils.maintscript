@@ -1,0 +1,1 @@
+rm_conffile /etc/udev/rules.d/z60_edac-utils.rules 0.16-1~ edac-utils
