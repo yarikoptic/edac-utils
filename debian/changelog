@@ -1,4 +1,4 @@
-edac-utils (0.18+git16-g8fdc1d-1) unstable; urgency=medium
+edac-utils (0.18+git16-g8fdc1d-1) UNRELEASED; urgency=medium
 
   * Freshier upstream snapshot (only few small fixes)
   * debian/edac-utils.maintscript - added to remove no longer provided udev
