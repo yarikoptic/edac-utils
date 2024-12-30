@@ -5,9 +5,9 @@ Maintainer: Yaroslav Halchenko <debian@onerussian.com>
 Uploaders: Tim Small <tim@buttersideup.com>
 Build-Depends: cdbs, debhelper (>= 10), libsysfs-dev, chrpath
 Standards-Version: 3.9.3
-Homepage: http://sourceforge.net/projects/edac-utils
-Vcs-Git: git://git.onerussian.com/deb/edac-utils
-Vcs-Browser: http://git.onerussian.com/?p=deb/edac-utils.git
+Homepage: https://github.com/grondo/edac-utils
+Vcs-Git: git://git.oneukrainian.com/deb/edac-utils
+Vcs-Browser: http://git.oneukrainian.com/?p=deb/edac-utils.git
 
 Package: edac-utils
 Architecture: any
