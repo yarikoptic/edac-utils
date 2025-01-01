@@ -5,10 +5,8 @@ Author: Petter Reinholdtsen
 Forwarded: no
 Last-Update: 2024-07-19
 ---
-Index: edac-utils-0.18+git12-gd98769e/Makefile.am
-===================================================================
---- edac-utils-0.18+git12-gd98769e.orig/Makefile.am    2024-07-19 07:23:42.534401762 +0200
-+++ edac-utils-0.18+git12-gd98769e/Makefile.am 2024-07-19 07:23:42.530401727 +0200
+--- a/Makefile.am
++++ b/Makefile.am
 @@ -3,9 +3,13 @@
  ACLOCAL_AMFLAGS =               -I config
  CONFIG_STATUS_DEPENDENCIES =    META
@@ -21,12 +19,10 @@ Index: edac-utils-0.18+git12-gd98769e/Makefile.am
 +metainfodir = $(datarootdir)/metainfo
 +
  distclean-local:
-       -rm -fr autm4te*.cache autoscan.* aclocal.m4
-       -rm -fr $(META_NAME)-*
-Index: edac-utils-0.18+git12-gd98769e/com.github.grondo.edac-utils.metainfo.xml
-===================================================================
---- /dev/null  1970-01-01 00:00:00.000000000 +0000
-+++ edac-utils-0.18+git12-gd98769e/com.github.grondo.edac-utils.metainfo.xml   2024-07-19 07:25:56.763563766 +0200
+ 	-rm -fr autm4te*.cache autoscan.* aclocal.m4
+ 	-rm -fr $(META_NAME)-*
+--- /dev/null
++++ b/com.github.grondo.edac-utils.metainfo.xml
 @@ -0,0 +1,150 @@
 +<?xml version="1.0" encoding="UTF-8"?>
 +<component type="desktop">
