@@ -1,10 +1,12 @@
-edac-utils (0.18+git16-g8fdc1d-1) UNRELEASED; urgency=medium
+edac-utils (0.18+git16-g8fdc1d-1) unstable; urgency=medium
 
   * Freshier upstream snapshot (only few small fixes)
   * debian/edac-utils.maintscript - added to remove no longer provided udev
     rules file. Thanks Petter Reinholdtsen for the recipe.
     Closes: #681629, #766926
-  * debian/control - adjusted URLs for upstream and packaging git.
+  * debian/control 
+    - adjusted URLs for upstream and packaging git
+    - replaced priority extra with optional
   * debian/patches/1000-appstream-metainfo.patch etc - include metainfo
     for appstream to recommend edac-utils if compatible hardware is detected.
     Upstream PR: https://github.com/grondo/edac-utils/pull/20

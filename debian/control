@@ -1,6 +1,6 @@
 Source: edac-utils
 Section: admin
-Priority: extra
+Priority: optional
 Maintainer: Yaroslav Halchenko <debian@onerussian.com>
 Uploaders: Tim Small <tim@buttersideup.com>
 Build-Depends: cdbs, debhelper (>= 10), libsysfs-dev, chrpath
