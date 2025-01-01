@@ -1,2 +1,3 @@
 deb_bogus_changelog
 deb_init_script
+1000-appstream-metainfo.patch
