@@ -25,7 +25,7 @@ Last-Update: 2024-07-19
 +++ b/com.github.grondo.edac_utils.metainfo.xml
 @@ -0,0 +1,150 @@
 +<?xml version="1.0" encoding="UTF-8"?>
-+<component type="desktop">
++<component>
 +  <id>com.github.grondo.edac_utils</id>
 +  <metadata_license>MIT</metadata_license>
 +  <project_license>GPL-2.0+</project_license>
